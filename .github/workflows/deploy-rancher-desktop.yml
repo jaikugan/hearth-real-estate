@@ -1,0 +1,43 @@
+name: Deploy to Rancher Desktop
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rancher-desktop-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, macOS, rancher-desktop]
+    env:
+      IMAGE: hearth-real-estate:${{ github.sha }}
+      KUBE_CONTEXT: rancher-desktop
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Add Rancher Desktop tools to PATH
+        run: echo "$HOME/.rd/bin" >> "$GITHUB_PATH"
+
+      - name: Check JavaScript syntax
+        run: node --check app.js
+
+      - name: Build image
+        run: docker build -t "$IMAGE" .
+
+      - name: Deploy to Kubernetes
+        run: |
+          sed "s|IMAGE_PLACEHOLDER|$IMAGE|" k8s/deployment.yaml \
+            | kubectl --context "$KUBE_CONTEXT" apply -f -
+
+      - name: Wait for rollout
+        run: kubectl --context "$KUBE_CONTEXT" -n hearth rollout status deployment/hearth-real-estate --timeout=120s
+
+      - name: Show service
+        run: kubectl --context "$KUBE_CONTEXT" -n hearth get service hearth-real-estate

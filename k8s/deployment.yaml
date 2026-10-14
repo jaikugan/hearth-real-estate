@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hearth
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hearth-real-estate
+  namespace: hearth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hearth-real-estate
+  template:
+    metadata:
+      labels:
+        app: hearth-real-estate
+    spec:
+      containers:
+        - name: web
+          image: IMAGE_PLACEHOLDER
+          # Image is built on the laptop and never pulled from a registry.
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hearth-real-estate
+  namespace: hearth
+spec:
+  type: LoadBalancer
+  selector:
+    app: hearth-real-estate
+  ports:
+    - port: 8090
+      targetPort: 8080

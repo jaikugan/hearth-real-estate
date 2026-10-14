@@ -1,0 +1,61 @@
+# Hearth Real Estate
+
+A small, responsive property-search website built with plain HTML, CSS, and JavaScript. It has no runtime dependencies or build step, so it can be served as a static site by a local web server or a static hosting provider.
+
+## Run locally
+
+Open `index.html` in a browser. For a local HTTP server, run this from the project folder:
+
+```sh
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000`.
+
+## Features
+
+- Search listings by address or city, and filter by home type and maximum price.
+- Switch between buying and renting, with rent prices shown monthly.
+- Save homes and filter the list to saved homes.
+- Sort listings by price and use the responsive layout on mobile or desktop.
+
+Property photos and the two display fonts are loaded from external image and font hosts, so those assets require an internet connection. Listing data and saved state are demo-only and reset when the page reloads.
+
+## Run with Docker
+
+Build the image from the project folder:
+
+```sh
+docker build -t hearth-real-estate .
+```
+
+Start the container and publish its port 8080 on local port 8080:
+
+```sh
+docker run --rm -p 8080:8080 hearth-real-estate
+```
+
+Open `http://localhost:8080`. Stop the foreground container with `Ctrl+C`.
+
+## Deploy to Rancher Desktop with GitHub Actions
+
+The workflow in `.github/workflows/deploy-rancher-desktop.yml` runs on a self-hosted runner on your laptop, builds the image, and deploys it to the Rancher Desktop Kubernetes cluster using `k8s/deployment.yaml`. It runs on pushes to `main` and can be started manually from the Actions tab.
+
+One-time setup:
+
+1. In Rancher Desktop, enable Kubernetes and select the **dockerd (moby)** container engine so locally built images are visible to the cluster.
+2. Push this project to a **private** GitHub repository. Self-hosted runners execute workflow code on your laptop, so do not use them with public repositories.
+3. In the repository, open **Settings → Actions → Runners → New self-hosted runner**, choose macOS, and follow the download and configure commands. When `config.sh` asks for additional labels, enter `rancher-desktop`.
+4. Start the runner with `./run.sh` (or install it as a service with `./svc.sh install && ./svc.sh start`).
+
+After a successful run, open `http://localhost:8090`. If the port is not forwarded, run:
+
+```sh
+kubectl --context rancher-desktop -n hearth port-forward service/hearth-real-estate 8090:8090
+```
+
+Remove the deployment with `kubectl --context rancher-desktop delete namespace hearth`.
+
+## Deployment
+
+This is a static site: publish `index.html`, `styles.css`, and `app.js` from the repository root, or build and deploy the Docker image. No application build or package-install step is required.
