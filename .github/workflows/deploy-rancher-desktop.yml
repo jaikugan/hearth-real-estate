@@ -41,6 +41,22 @@ jobs:
       - name: Build image
         run: docker build -t "$IMAGE" .
 
+      # Pin to a verified tag or digest; trivy images were tampered with in a 2026 supply-chain incident.
+      - name: Trivy image scan
+        env:
+          TRIVY_IMAGE: aquasec/trivy:0.69.3
+        run: |
+          docker save "$IMAGE" -o "$RUNNER_TEMP/image.tar"
+          # docker cp instead of a bind mount: Rancher Desktop's VM only shares $HOME.
+          cid=$(docker create -v trivy-cache:/root/.cache "$TRIVY_IMAGE" image --input /image.tar \
+            --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 --no-progress)
+          docker cp "$RUNNER_TEMP/image.tar" "$cid:/image.tar"
+          rm -f "$RUNNER_TEMP/image.tar"
+          rc=0
+          docker start -a "$cid" || rc=$?
+          docker rm "$cid" >/dev/null
+          exit "$rc"
+
       - name: Deploy to Kubernetes
         run: |
           sed "s|IMAGE_PLACEHOLDER|$IMAGE|" k8s/deployment.yaml \
