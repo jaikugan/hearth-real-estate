@@ -48,13 +48,39 @@ One-time setup:
 3. In the repository, open **Settings → Actions → Runners → New self-hosted runner**, choose macOS, and follow the download and configure commands. When `config.sh` asks for additional labels, enter `rancher-desktop`.
 4. Start the runner with `./run.sh` (or install it as a service with `./svc.sh install && ./svc.sh start`).
 
-After a successful run, open `http://localhost:8090`. If the port is not forwarded, run:
+After a successful run, open `http://localhost:8091`. If the port is not forwarded, run:
 
 ```sh
-kubectl --context rancher-desktop -n hearth port-forward service/hearth-real-estate 8090:8090
+kubectl --context rancher-desktop -n hearth port-forward service/hearth-real-estate 8091:8091
 ```
 
 Remove the deployment with `kubectl --context rancher-desktop delete namespace hearth`.
+
+### Code analysis with SonarQube
+
+Before building the image, the workflow scans the code with SonarQube and stops the deployment if the project fails its quality gate. Project settings are in `sonar-project.properties`.
+
+One-time setup:
+
+1. Start SonarQube Community on your laptop:
+
+   ```sh
+   docker run -d --name sonarqube --restart unless-stopped -p 9000:9000 \
+     -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
+     -v sonarqube_data:/opt/sonarqube/data \
+     -v sonarqube_extensions:/opt/sonarqube/extensions \
+     -v sonarqube_logs:/opt/sonarqube/logs \
+     sonarqube:community
+   ```
+
+   SonarQube needs about 2 GB of memory; give Rancher Desktop at least 6 GB under **Preferences → Virtual Machine**.
+2. Open `http://localhost:9000`, sign in as `admin` / `admin`, and set a new password.
+3. Create a local project with project key `hearth-real-estate`, then generate a project analysis token under **My Account → Security**.
+4. In GitHub, open **Settings → Secrets and variables → Actions**:
+   - On the **Secrets** tab, add `SONAR_TOKEN` with the token.
+   - On the **Variables** tab, add `SONAR_HOST_URL` with `http://localhost:9000`.
+
+Results appear in the SonarQube dashboard after each run.
 
 ## Deployment
 
