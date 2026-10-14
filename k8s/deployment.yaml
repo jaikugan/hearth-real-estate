@@ -55,5 +55,5 @@ spec:
   selector:
     app: hearth-real-estate
   ports:
-    - port: 8090
+    - port: 8091
       targetPort: 8080
