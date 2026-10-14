@@ -5,4 +5,4 @@ resources:
 # CI updates newTag after each successful build; Argo CD deploys whatever is committed here.
 images:
   - name: hearth-real-estate
-    newTag: 27305a2e99cb71f586474eaca053b5fdad6ad7fb
+    newTag: 7f27385f1146d0f04edc7b37a72e0ae4cac0f308
