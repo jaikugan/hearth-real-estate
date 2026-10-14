@@ -39,7 +39,7 @@ Open `http://localhost:8080`. Stop the foreground container with `Ctrl+C`.
 
 ## Deploy to Rancher Desktop with GitHub Actions
 
-The workflow in `.github/workflows/deploy-rancher-desktop.yml` runs on a self-hosted runner on your laptop, builds the image, and deploys it to the Rancher Desktop Kubernetes cluster using `k8s/deployment.yaml`. It runs on pushes to `main` and can be started manually from the Actions tab.
+The workflow in `.github/workflows/deploy-rancher-desktop.yml` runs on a self-hosted runner on your laptop, builds and scans the image, then commits its tag to `k8s/kustomization.yaml`. Argo CD watches `k8s/` on `main` and deploys it to the Rancher Desktop Kubernetes cluster. The workflow runs on pushes to `main` and can be started manually from the Actions tab.
 
 One-time setup:
 
@@ -54,7 +54,28 @@ After a successful run, open `http://localhost:8091`. If the port is not forward
 kubectl --context rancher-desktop -n hearth port-forward service/hearth-real-estate 8091:8091
 ```
 
-Remove the deployment with `kubectl --context rancher-desktop delete namespace hearth`.
+Remove the deployment with `kubectl --context rancher-desktop -n argocd delete application hearth-real-estate`, then `kubectl --context rancher-desktop delete namespace hearth`.
+
+### Continuous delivery with Argo CD
+
+One-time setup:
+
+1. Install Argo CD:
+
+   ```sh
+   kubectl --context rancher-desktop create namespace argocd
+   kubectl --context rancher-desktop apply -n argocd --server-side --force-conflicts \
+     -f https://raw.githubusercontent.com/argoproj/argo-cd/v3.5.5/manifests/install.yaml
+   ```
+
+2. Register the app: `kubectl --context rancher-desktop apply -f argocd/application.yaml`.
+3. Open the UI with `kubectl --context rancher-desktop -n argocd port-forward service/argocd-server 8443:443` and go to `https://localhost:8443`. Sign in as `admin` with the password from:
+
+   ```sh
+   kubectl --context rancher-desktop -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d
+   ```
+
+Argo CD reverts manual changes to the `hearth` namespace; change `k8s/` in git instead.
 
 ### Code analysis with SonarQube
 

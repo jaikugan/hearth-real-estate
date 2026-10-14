@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: IMAGE_PLACEHOLDER
+          image: hearth-real-estate
           # Image is built on the laptop and never pulled from a registry.
           imagePullPolicy: Never
           ports:

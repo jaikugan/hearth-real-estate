@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: rancher-desktop-deploy
@@ -57,13 +57,33 @@ jobs:
           docker rm "$cid" >/dev/null
           exit "$rc"
 
-      - name: Deploy to Kubernetes
+      # Argo CD deploys what's in git, so publish the new tag there.
+      - name: Commit image tag for Argo CD
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          sed "s|IMAGE_PLACEHOLDER|$IMAGE|" k8s/deployment.yaml \
-            | kubectl --context "$KUBE_CONTEXT" apply -f -
+          git fetch origin main
+          git checkout -B main origin/main
+          perl -pi -e "s/newTag: .*/newTag: $GITHUB_SHA/" k8s/kustomization.yaml
+          if git diff --quiet; then echo "Tag already set"; exit 0; fi
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -am "deploy: hearth-real-estate ${GITHUB_SHA::7} [skip ci]"
+          auth=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64)
+          git -c http.extraheader="AUTHORIZATION: basic $auth" push origin HEAD:main
 
-      - name: Wait for rollout
-        run: kubectl --context "$KUBE_CONTEXT" -n hearth rollout status deployment/hearth-real-estate --timeout=120s
+      - name: Ask Argo CD to refresh
+        run: kubectl --context "$KUBE_CONTEXT" -n argocd annotate application hearth-real-estate argocd.argoproj.io/refresh=normal --overwrite
+
+      - name: Wait for Argo CD rollout
+        run: |
+          for _ in $(seq 60); do
+            current=$(kubectl --context "$KUBE_CONTEXT" -n hearth get deploy hearth-real-estate -o jsonpath='{.spec.template.spec.containers[0].image}')
+            [ "$current" = "$IMAGE" ] && break
+            sleep 5
+          done
+          [ "$current" = "$IMAGE" ] || { echo "Argo CD did not deploy $IMAGE (running: $current)"; exit 1; }
+          kubectl --context "$KUBE_CONTEXT" -n hearth rollout status deployment/hearth-real-estate --timeout=120s
 
       - name: Show service
         run: kubectl --context "$KUBE_CONTEXT" -n hearth get service hearth-real-estate
