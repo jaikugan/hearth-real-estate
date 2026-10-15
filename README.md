@@ -1,4 +1,4 @@
-# Hearth Real Estate
+# Harvika Real Estate Groups
 
 A small, responsive property-search website built with plain HTML, CSS, and JavaScript. It has no runtime dependencies or build step, so it can be served as a static site by a local web server or a static hosting provider.
 
@@ -14,10 +14,12 @@ Then open `http://localhost:8000`.
 
 ## Features
 
-- Search listings by address or city, and filter by home type and maximum price.
-- Switch between buying and renting, with rent prices shown monthly.
-- Save homes and filter the list to saved homes.
-- Sort listings by price and use the responsive layout on mobile or desktop.
+- Browse homes, commercial property, land and bank auction properties, and filter by locality and budget (₹ lakh/crore).
+- Open a property to see specs, features and, for bank auctions, reserve price, EMD and auction date.
+- Enquire about a property, or send a requirement from the contact form, straight to WhatsApp.
+- Save properties, sort by price, and use the responsive layout on mobile or desktop.
+
+Business details (WhatsApp number, phone, email, address, team) and listings are at the top of `app.js`. Replace the placeholders before publishing.
 
 Property photos and the two display fonts are loaded from external image and font hosts, so those assets require an internet connection. Listing data and saved state are demo-only and reset when the page reloads.
 
@@ -72,8 +74,10 @@ One-time setup:
 3. Open the UI with `kubectl --context rancher-desktop -n argocd port-forward service/argocd-server 8443:443` and go to `https://localhost:8443`. Sign in as `admin` with the password from:
 
    ```sh
-   kubectl --context rancher-desktop -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d
+   kubectl --context rancher-desktop -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d; echo
    ```
+
+   Change the password after signing in, then delete the `argocd-initial-admin-secret` secret.
 
 Argo CD reverts manual changes to the `hearth` namespace; change `k8s/` in git instead.
 

@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f6f5ef" />
-    <meta name="description" content="Find a place that feels like yours with Hearth real estate." />
-    <title>Hearth | Find your place</title>
+    <meta name="theme-color" content="#111111" />
+    <meta name="description" content="Harvika Real Estate Groups helps you buy homes, commercial property, land and bank auction properties, and manages properties for owners." />
+    <title>Harvika Real Estate Groups | Homes, Commercial, Land &amp; Bank Auctions</title>
+    <link rel="icon" type="image/png" href="assets/logo-mark.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -14,86 +15,94 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#home" aria-label="Hearth home">
-        <span class="brand-mark" aria-hidden="true">h</span>
-        <span>hearth</span>
+      <a class="brand" href="#home" aria-label="Harvika Real Estate Groups home">
+        <img class="brand-logo" src="assets/logo-mark.png" alt="" width="200" height="161" />
+        <span>Harvika<small>Real Estate Groups</small></span>
       </a>
       <nav class="main-nav" aria-label="Main navigation">
-        <a class="nav-link is-current" href="#homes" data-mode="buy">Buy</a>
-        <a class="nav-link" href="#homes" data-mode="rent">Rent</a>
-        <a class="nav-link" href="#homes">Sell</a>
+        <a class="nav-link" href="#properties" data-category="all">Properties</a>
+        <a class="nav-link" href="#properties" data-category="auction">Bank auctions</a>
+        <a class="nav-link" href="#services">Services</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#contact">Contact</a>
       </nav>
-      <button class="saved-nav" id="saved-toggle" type="button" aria-pressed="false">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z" /></svg>
-        <span>Saved</span><span class="saved-count" id="saved-count">0</span>
-      </button>
+      <div class="header-actions">
+        <button class="saved-nav" id="saved-toggle" type="button" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z" /></svg>
+          <span>Saved</span><span class="saved-count" id="saved-count">0</span>
+        </button>
+        <a class="call-button" data-phone-link href="#contact">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z" /></svg>
+          <span>Call us</span>
+        </a>
+      </div>
     </header>
 
     <main id="home">
       <section class="intro" aria-labelledby="page-title">
         <div class="intro-copy">
-          <p class="eyebrow"><span class="eyebrow-dot"></span> A better way to find home</p>
-          <h1 id="page-title">Room for the<br /><em>life you live.</em></h1>
-          <p class="intro-text">Thoughtful homes, good neighborhoods, and a little more room to be yourself.</p>
-          <div class="intro-note"><span class="note-rule"></span><span>Find your kind of place</span></div>
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Homes · Commercial · Land · Bank auctions</p>
+          <h1 id="page-title">Property decisions,<br /><em>made with trust.</em></h1>
+          <p class="intro-text">Harvika Real Estate Groups helps you buy the right home, office or plot, bid on bank auction properties with confidence, and keeps your property cared for after you own it.</p>
+          <div class="intro-actions">
+            <a class="primary-button" href="#properties">View properties</a>
+            <a class="whatsapp-button" data-whatsapp-link href="#contact" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.6-.1 1.1Z" /></svg>
+              <span>Chat on WhatsApp</span>
+            </a>
+          </div>
         </div>
-        <div class="intro-image" role="img" aria-label="Sunlit modern home surrounded by trees">
-          <span class="image-caption"><span class="caption-dot"></span> Find your somewhere</span>
+        <div class="intro-image" role="img" aria-label="Modern home with a landscaped garden">
+          <span class="image-caption"><span class="caption-dot"></span> Verified listings, honest advice</span>
         </div>
-        <div class="intro-stamp" aria-hidden="true"><span>GOOD<br />PLACES<br /><b>LIVE</b><br />HERE</span></div>
+        <div class="intro-stamp" aria-hidden="true"><span>BUY<br />MANAGE<br /><b>INVEST</b><br />WISELY</span></div>
       </section>
 
-      <section class="search-section" aria-label="Search homes">
+      <section class="search-section" aria-label="Search properties">
         <div class="search-topline">
-          <div class="mode-switch" role="group" aria-label="Listing type">
-            <button class="mode-button is-active" type="button" data-mode="buy" aria-pressed="true">Buy</button>
-            <button class="mode-button" type="button" data-mode="rent" aria-pressed="false">Rent</button>
+          <div class="mode-switch" role="group" aria-label="Property category">
+            <button class="mode-button is-active" type="button" data-category="all" aria-pressed="true">All</button>
+            <button class="mode-button" type="button" data-category="home" aria-pressed="false">Homes</button>
+            <button class="mode-button" type="button" data-category="commercial" aria-pressed="false">Commercial</button>
+            <button class="mode-button" type="button" data-category="land" aria-pressed="false">Land &amp; plots</button>
+            <button class="mode-button" type="button" data-category="auction" aria-pressed="false">Bank auctions</button>
           </div>
-          <span class="search-hint">A good place is closer than you think.</span>
         </div>
         <form class="search-form" id="search-form">
           <label class="search-field location-field">
             <span class="field-label">Location</span>
             <span class="input-wrap">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>
-              <input id="location" name="location" type="search" placeholder="City, neighborhood, or ZIP" autocomplete="off" />
+              <input id="location" name="location" type="search" placeholder="Locality, city or property name" autocomplete="off" />
             </span>
           </label>
-          <label class="search-field">
-            <span class="field-label">Home type</span>
-            <select id="home-type" name="type">
-              <option value="any">Any type</option>
-              <option value="House">House</option>
-              <option value="Condo">Condo</option>
-              <option value="Townhouse">Townhouse</option>
-            </select>
-          </label>
           <label class="search-field price-field">
-            <span class="field-label">Max price</span>
+            <span class="field-label">Budget</span>
             <select id="max-price" name="price">
-              <option value="any">No max</option>
-              <option value="500000">$500k</option>
-              <option value="750000">$750k</option>
-              <option value="1000000">$1m</option>
+              <option value="any">Any budget</option>
+              <option value="5000000">Up to ₹50 L</option>
+              <option value="10000000">Up to ₹1 Cr</option>
+              <option value="20000000">Up to ₹2 Cr</option>
+              <option value="50000000">Up to ₹5 Cr</option>
             </select>
           </label>
           <button class="search-button" type="submit">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5" /></svg>
-            <span>Find homes</span>
+            <span>Search</span>
           </button>
         </form>
       </section>
 
-      <section class="listings-section" id="homes" aria-labelledby="homes-title">
+      <section class="listings-section" id="properties" aria-labelledby="properties-title">
         <div class="listings-heading">
           <div>
-            <p class="eyebrow section-eyebrow"><span class="eyebrow-dot"></span> Handpicked for you</p>
-            <h2 id="homes-title">Places to <em>put down roots.</em></h2>
+            <p class="eyebrow section-eyebrow"><span class="eyebrow-dot"></span> Current listings</p>
+            <h2 id="properties-title">Properties <em>worth a visit.</em></h2>
           </div>
           <div class="results-tools">
-            <p id="results-count" aria-live="polite">Showing 4 homes</p>
+            <p id="results-count" aria-live="polite"></p>
             <label class="sort-label" for="sort-order">Sort</label>
-            <select id="sort-order" aria-label="Sort homes">
+            <select id="sort-order" aria-label="Sort properties">
               <option value="featured">Featured</option>
               <option value="low">Price: low to high</option>
               <option value="high">Price: high to low</option>
@@ -103,13 +112,105 @@
         <div class="property-grid" id="property-grid"></div>
         <div class="empty-state" id="empty-state" hidden>
           <span class="empty-icon" aria-hidden="true">⌂</span>
-          <h3>No homes found just yet.</h3>
-          <p>Try a nearby city or loosen your filters a little.</p>
+          <h3>No matching properties right now.</h3>
+          <p>Try another locality or budget, or tell us what you need and we'll look for you.</p>
           <button class="clear-button" id="clear-filters" type="button">Clear filters</button>
         </div>
       </section>
+
+      <section class="services-section" id="services" aria-labelledby="services-title">
+        <p class="eyebrow section-eyebrow"><span class="eyebrow-dot"></span> What we do</p>
+        <h2 id="services-title">One partner for <em>every property need.</em></h2>
+        <div class="services-grid">
+          <article class="service-card">
+            <h3>Buying a home</h3>
+            <p>Shortlisting, site visits, price negotiation and help with documentation and home loans until you get the keys.</p>
+          </article>
+          <article class="service-card">
+            <h3>Commercial property</h3>
+            <p>Offices, shops and buildings for your business or as an investment, with clear rental-yield and location advice.</p>
+          </article>
+          <article class="service-card">
+            <h3>Land &amp; plots</h3>
+            <p>Residential plots and agricultural land with title, approval and boundary checks before you commit.</p>
+          </article>
+          <article class="service-card service-card-accent">
+            <h3>Bank auction properties</h3>
+            <p>We track bank sale notices, inspect the property, explain the reserve price and EMD, and guide you through e-auction bidding.</p>
+          </article>
+          <article class="service-card">
+            <h3>Property management</h3>
+            <p>Tenant search, rent collection, maintenance and regular inspections for owners who live elsewhere.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="about-section" id="about" aria-labelledby="about-title">
+        <div class="about-copy">
+          <p class="eyebrow section-eyebrow"><span class="eyebrow-dot"></span> About us</p>
+          <h2 id="about-title">Local knowledge, <em>straight answers.</em></h2>
+          <p>Harvika Real Estate Groups is built on a simple promise: show you only what we would buy ourselves, explain every cost up front, and stay with you after the sale.</p>
+          <ul class="about-points">
+            <li>Every listing visited and checked by our team</li>
+            <li>Transparent pricing and commission</li>
+            <li>Support with legal checks, registration and loans</li>
+          </ul>
+        </div>
+        <div class="team-grid" id="team-grid" aria-label="Our team"></div>
+      </section>
+
+      <section class="contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="contact-copy">
+          <p class="eyebrow section-eyebrow"><span class="eyebrow-dot"></span> Get in touch</p>
+          <h2 id="contact-title">Tell us what <em>you're looking for.</em></h2>
+          <p>Send your requirement and we'll reply on WhatsApp, usually within a few hours.</p>
+          <dl class="contact-details">
+            <div><dt>Phone</dt><dd><a data-phone-link data-phone-text href="#contact"></a></dd></div>
+            <div><dt>Email</dt><dd><a id="contact-email" href="#contact"></a></dd></div>
+            <div><dt>Office</dt><dd id="contact-address"></dd></div>
+          </dl>
+        </div>
+        <form class="contact-form" id="contact-form">
+          <label>
+            <span class="field-label">Your name</span>
+            <input name="name" type="text" autocomplete="name" maxlength="80" required />
+          </label>
+          <label>
+            <span class="field-label">Phone</span>
+            <input name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+ ]{10,15}" title="10–15 digits" required />
+          </label>
+          <label>
+            <span class="field-label">I'm interested in</span>
+            <select name="interest">
+              <option>Buying a home</option>
+              <option>Commercial property</option>
+              <option>Land &amp; plots</option>
+              <option>Bank auction properties</option>
+              <option>Property management</option>
+            </select>
+          </label>
+          <label class="contact-message">
+            <span class="field-label">Requirement</span>
+            <textarea name="message" rows="4" maxlength="600" placeholder="Location, budget, size, timeline…"></textarea>
+          </label>
+          <button class="primary-button" type="submit">Send on WhatsApp</button>
+        </form>
+      </section>
     </main>
 
-    <footer class="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark" aria-hidden="true">h</span><span>hearth</span></a><span>Good places make room for good things.</span><span>© 2025 Hearth Realty</span></footer>
+    <dialog class="property-dialog" id="property-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" id="dialog-close" type="button" aria-label="Close">×</button>
+      <div id="dialog-body"></div>
+    </dialog>
+
+    <a class="whatsapp-float" data-whatsapp-link href="#contact" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.6-.1 1.1Z" /></svg>
+    </a>
+
+    <footer class="site-footer">
+      <a href="#home"><img class="footer-logo" src="assets/logo-full.png" alt="Harvika Real Estate Groups – Land, Homes, Investments" width="640" height="480" loading="lazy" /></a>
+      <span>Homes · Commercial · Land · Bank auctions · Property management</span>
+      <span>© <span id="year">2026</span> Harvika Real Estate Groups</span>
+    </footer>
   </body>
 </html>
